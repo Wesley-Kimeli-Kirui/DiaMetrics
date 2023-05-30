@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home | Diabetes Data Tracker</title>
+  </head>
+
+  <body>
+    {% extends "template.html" %} {% block content %}
+    <div class="container">
+        <a href="/print" style="margin: 20px 0; font-size: larger;">Print Data</a><br /><br />
+      <form method="POST" action="/submit_data">
+        <label for="date">Date:</label>
+        <input type="date" name="date" required /><br /><br />
+
+        <label for="bs_fast">Blood Sugar Level Fasting/Before Breakfast:</label>
+        <input type="number" name="bs_fast" required /><br /><br />
+
+        <label for="breakfast_time"
+          >Time and What they ate for Breakfast:</label
+        >
+        <input type="time" name="breakfast_time" required />
+        <input
+          type="text"
+          name="breakfast_menu"
+          placeholder="Enter breakfast menu"
+        /><br /><br />
+
+        <label for="lunch_time">Time and What they ate for Lunch:</label>
+        <input type="time" name="lunch_time" required />
+        <input
+          type="text"
+          name="lunch_menu"
+          placeholder="Enter lunch menu"
+        /><br /><br />
+
+        <label for="dinner_time">Time and What they ate for Dinner:</label>
+        <input type="time" name="dinner_time" required />
+        <input
+          type="text"
+          name="dinner_menu"
+          placeholder="Enter dinner menu"
+        /><br /><br />
+
+        <label for="bs_dinner"
+          >Blood Sugar Level after 2 hours of eating Dinner:</label
+        >
+        <input type="number" name="bs_dinner" required /><br /><br />
+
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+    {% endblock %}
+  </body>
+</html>

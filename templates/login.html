@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diabetes Data Tracker | Login</title>
+  </head>
+
+  <body>
+    {% extends "template.html" %} {% block content %}
+
+    <div class="container register">
+      <form action="/login" method="POST">
+        <h1>Login</h1>
+        <div class="form-control">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required /><br />
+        </div>
+        <div class="form-control">
+          <label for="fpassword">First Password:</label>
+          <input
+            type="password"
+            id="fpassword"
+            name="fpassword"
+            required
+          /><br />
+        </div>
+        <div class="form-control">
+          <label for="question1">Choose question 1:</label>
+          <select
+            id="question1"
+            name="question1"
+            onchange="onQuestionSelected(this)"
+          >
+            <option value="">Select a question</option>
+            <option value="college">
+              What is the name of a college you applied to but didn't attend?
+            </option>
+            <option value="school">
+              What was the name of the first school you remember attending?
+            </option>
+            <option value="field-trip">
+              Where was the destination of your most memorable school field
+              trip?
+            </option>
+            <option value="math-teacher">
+              What was your math's teacher's surname in your 8th year of school?
+            </option>
+            <option value="stuffed-toy">
+              What was the name of your first stuffed toy?
+            </option>
+            <option value="driving-instructor">
+              What was your driving instructor's first name?
+            </option>
+            <option value="custom">Custom question (type your own)</option>
+          </select>
+          <br />
+          <div id="question1-answer">
+            <label for="question1-answer-input">Answer:</label>
+            <input
+              type="text"
+              id="question1-answer-input"
+              name="question1-answer-input"
+            />
+          </div>
+        </div>
+
+        <div class="form-control">
+          <label for="question2">Choose question 2:</label>
+          <select
+            id="question2"
+            name="question2"
+            onchange="onQuestionSelected(this)"
+          >
+            <option value="">Select a question</option>
+            <option value="college">
+              What is the name of a college you applied to but didn't attend?
+            </option>
+            <option value="school">
+              What was the name of the first school you remember attending?
+            </option>
+            <option value="field-trip">
+              Where was the destination of your most memorable school field
+              trip?
+            </option>
+            <option value="math-teacher">
+              What was your math's teacher's surname in your 8th year of school?
+            </option>
+            <option value="stuffed-toy">
+              What was the name of your first stuffed toy?
+            </option>
+            <option value="driving-instructor">
+              What was your driving instructor's first name?
+            </option>
+            <option value="custom">Custom question (type your own)</option>
+          </select>
+          <br />
+          <div id="question2-answer">
+            <label for="question2-answer-input">Answer:</label>
+            <input
+              type="text"
+              id="question2-answer-input"
+              name="question2-answer-input"
+            />
+          </div>
+        </div>
+
+        <div class="form-control">
+          <label for="question3">Choose question 3:</label>
+          <select
+            id="question3"
+            name="question3"
+            onchange="onQuestionSelected(this)"
+          >
+            <option value="">Select a question</option>
+            <option value="college">
+              What is the name of a college you applied to but didn't attend?
+            </option>
+            <option value="school">
+              What was the name of the first school you remember attending?
+            </option>
+            <option value="field-trip">
+              Where was the destination of your most memorable school field
+              trip?
+            </option>
+            <option value="math-teacher">
+              What was your math's teacher's surname in your 8th year of school?
+            </option>
+            <option value="stuffed-toy">
+              What was the name of your first stuffed toy?
+            </option>
+            <option value="driving-instructor">
+              What was the name of your driving instructor?
+            </option>
+            <option value="custom">Write my own question</option>
+          </select>
+          <div id="question3-answer">
+            <label for="question3-answer-input">Answer:</label>
+            <input
+              type="text"
+              id="question3-answer-input"
+              name="question3-answer-input"
+            />
+          </div>
+        </div>
+        <div class="form-control">
+          <label for="tpassword">Third password:</label>
+          <div id="picture-grid"></div>
+          <input type="hidden" id="tpassword" name="tpassword" />
+        </div>
+
+        <input type="submit" value="Login" />
+        <a href="/reset-password">Forgot password?</a>
+      </form>
+    </div>
+    <script>
+      const pictures = [
+        "faisal-waheed-8s9et-Zc6X4-unsplash.jpg",
+        "iman-Vaugz0s98pI-unsplash.jpg",
+        "johann-siemens-EPy0gBJzzZU-unsplash.jpg",
+        "mostafa-jamei-cgtQxUpU4pk-unsplash.jpg",
+        "kaffeebart-287jsf2cbCA-unsplash.jpg",
+        "niko-photos-tGTVxeOr_Rs-unsplash.jpg",
+        "simon-wilkes-S297j2CsdlM-unsplash.jpg",
+        "patrik-storm-alstra-pictures-EAUKO-TEljA-unsplash.jpg",
+        "taichi-nakamura-nS5ZIp3fcGc-unsplash.jpg",
+      ];
+      // Display the picture grid during registration
+      const pictureGrid = document.getElementById("picture-grid");
+      const selectedPicture = document.getElementById("tpassword");
+      const shuffledPictures = shuffle(pictures);
+      for (let i = 0; i < 9; i++) {
+        const picture = shuffledPictures[i];
+        const img = document.createElement("img");
+        img.src = "../static/images/" + picture;
+        img.alt = "Picture #" + i;
+        img.addEventListener("click", () => {
+          selectedPicture.value = picture;
+          img.classList.add("selected");
+          clearSelection();
+          console.log(selectedPicture.value);
+        });
+
+        pictureGrid.appendChild(img);
+      }
+
+      // Shuffle the array of pictures
+      function shuffle(array) {
+        let currentIndex = array.length;
+        let temporaryValue, randomIndex;
+        while (0 !== currentIndex) {
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex--;
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+        }
+        return array;
+      }
+
+      // Clear the selection on all images except the selected one
+      function clearSelection() {
+        const images = pictureGrid.querySelectorAll("img");
+        images.forEach((img) => {
+          img.classList.remove("selected");
+        });
+      }
+      function onQuestionSelected(select) {
+        // Get all select elements on the page
+        const selects = document.getElementsByTagName("select");
+
+        // Loop through all select elements
+        for (let i = 0; i < selects.length; i++) {
+          // Skip the current select element
+          if (selects[i] === select) {
+            continue;
+          }
+
+          // Loop through all options in the current select element
+          for (let j = 0; j < selects[i].options.length; j++) {
+            const option = selects[i].options[j];
+
+            // Enable the option if it was previously disabled
+            if (option.disabled && option.value !== "") {
+              option.disabled = false;
+            }
+
+            // Disable the selected option
+            if (option.value === select.value) {
+              option.disabled = true;
+            }
+          }
+        }
+      }
+    </script>
+
+    {% endblock %}
+  </body>
+</html>

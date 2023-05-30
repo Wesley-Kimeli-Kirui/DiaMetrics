@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Flask Parent Template</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',     filename='css/template.css') }}"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/template.js') }}"></script>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1 class="logo">Diabetes Data Tracker</h1>
+        <strong
+          ><nav>
+            <ul class="menu">
+              <li><a href="{{ url_for('home') }}">Home</a></li>
+              {% if 'loggedin' in session %}
+              <li><a href="{{ url_for('logout') }}">Logout</a></li>
+              <li><a href="{{ url_for('profile') }}">Profile</a></li>
+              {% else %}
+              <li><a href="{{ url_for('login') }}">Login</a></li>
+              <li><a href="{{ url_for('register') }}">Register</a></li>
+              {% endif %}
+            </ul>
+          </nav></strong
+        >
+      </div>
+    </header>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %}
+    <ul class="flashes">
+      {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% endwith %} {% block content %} {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home | Diabetes Data Tracker</title>
+  </head>
+
+  <body>
+    {% extends "template.html" %} {% block content %}
+    <div class="container">
+      <a href="/print" style="margin: 20px 0; font-size: larger">Print User Data</a
+      ><br /><br />
+      <table border="1" style="border-collapse: collapse">
+        <thead>
+          <tr>
+            <th style="padding: 10px">Date</th>
+            <th>Time taking blood sugar level in am AM</th>
+            <th>Breakfast menu</th>
+            <th>Lunch menu</th>
+            <th>Dinner menu</th>
+            <th>Time taking blood sugar level in pm PM</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in data %}
+          <tr style="padding: 10px">
+            <td style="padding: 10px">{{ row.date }}</td>
+            <td>{{ row.breakfast_time }}</td>
+            <td>{{ row.breakfast_menu }}</td>
+            <td>{{ row.lunch_menu }}</td>
+            <td>{{ row.dinner_menu }}</td>
+            <td>{{ row.dinner_time }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endblock %}
+  </body>
+</html>
